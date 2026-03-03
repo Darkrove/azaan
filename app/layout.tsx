@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { cn, constructMetadata } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,17 +14,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Azaan - Prayer Times",
-  description: "Local prayer times in your area",
-  icons: {
-    icon: "/icons/icon-192.png",
-    apple: "/icons/icon-192.png",
-    other: [
-      { rel: "icon", url: "/icons/icon-512.png" }
-    ]
-  }
-};
+export const metadata = constructMetadata({
+  title: siteConfig.name,
+  description: siteConfig.description,
+});
 
 export default function RootLayout({
   children,
@@ -31,12 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-      </head>
+      <head/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
