@@ -1,3 +1,16 @@
+# azaan
+
+This repository was originally a terminal-based application. It has been converted into a **Next.js mobile‑friendly prayer times web app** using the [Aladhan Prayer Times API](https://aladhan.com/prayer-times-api#get-/timings/).
+
+**Features:**
+- Geolocation‑based timing lookup (falls back to IP lookup then Mecca if denied).
+- Automatic calculation method & school based on country (Karachi for India, MWL for Europe, etc.) with manual override via a toggle in the island bar (and a separate settings screen).
+- Island‑style timezone header showing location source and optional city/country label.
+- Bottom tab navigation for Fajr/Dhuhr/Asr/Maghrib/Isha.
+- Prominent display of selected prayer time plus full schedule with current/next markers.
+- `lib/api.ts` contains fully typed helpers mirroring the original terminal repo’s API module.
+- `lib/geo.ts` tries multiple IP‑geolocation services as a fallback.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
