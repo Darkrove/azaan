@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Poppins, Lora, Fira_Code } from "next/font/google";
+import "./global.css";
 import { cn, constructMetadata } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Poppins({
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontSerif = Lora({
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const fontMono = Fira_Code({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata = constructMetadata({
@@ -27,9 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head/>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}>
         {children}
       </body>
     </html>

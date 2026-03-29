@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   fetchTimingsByCoords,
   getRecommendedMethod,
@@ -307,6 +308,18 @@ export default function PrayerTimes() {
               </Field>
             </FieldLabel>
           </FieldGroup>
+          {/* Footer with credit */}
+          <div className="w-full flex justify-center pb-4 text-center text-sm text-muted-foreground">
+            Made with ❤️ by{" "}
+            <a
+              href="https://www.instagram.com/sajjadshaikh.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline ml-1"
+            >
+              Sajjad Shaikh
+            </a>
+          </div>
         </div>
       </DrawerContent>
 
@@ -327,8 +340,8 @@ export default function PrayerTimes() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center pt-12">
-          {error && <p className="text-red-500">{error}</p>}
-          {!timings && !error && <p>Loading prayer times…</p>}
+          {error && <p className="text-destructive">{error}</p>}
+          {!timings && !error && <p className="text-muted-foreground">Loading prayer times…</p>}
 
           {timings && selectedPrayer && (
             <div className="text-center">
@@ -349,7 +362,7 @@ export default function PrayerTimes() {
           {timings && (
             <div className="mt-8 w-full px-8 flex flex-col items-center space-y-4">
               {currentPrayer && (
-                <div className="w-full py-2 px-4 border rounded-full text-left text-primary">
+                <div className="w-full shadow-xs py-2 px-4 bg-primary text-primary-foreground border rounded-full text-left">
                   <span className="font-semibold">
                     {emojis[currentPrayer]} {currentPrayer}
                   </span>
@@ -357,7 +370,7 @@ export default function PrayerTimes() {
                 </div>
               )}
               {selectedPrayer && selectedPrayer !== currentPrayer && (
-                <div className="w-full py-2 px-4 bg-primary text-primary-foreground rounded-full text-left">
+                <div className="w-full py-2 px-4 shadow-xs bg-secondary text-secondary-foreground border rounded-full text-left">
                   <span className="font-semibold">
                     {emojis[selectedPrayer]} {selectedPrayer}
                   </span>
@@ -369,30 +382,37 @@ export default function PrayerTimes() {
         </div>
 
         {/* Bottom navigation */}
-        <nav className="border bg-secondary ">
-          <ul className="flex justify-around p-2">
+        <nav className="border bg-card h-20">
+          <ul className="flex justify-around p-2 h-full">
             {prayers.map((p) => (
-              <li key={p} className="flex-1">
-                <button
+              <li key={p} className="flex-1 h-full">
+                <motion.button
                   onClick={() => handleNav(p)}
-                  className={`w-full p-3 flex flex-col items-center justify-center space-y-1 text-sm transition-colors
-                  ${
-                    selectedPrayer === p
-                      ? "text-secondary-foreground bg-primary rounded-xl"
-                      : "text-primary-foreground hover:text-primary-foreground/80"
-                  }`}
+                  animate={{
+                    scale: selectedPrayer === p ? 1.05 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className={`w-full h-full p-3 flex flex-col items-center justify-center space-y-1 text-sm transition-colors
+                  ${selectedPrayer === p
+                      ? "text-secondary-foreground bg-secondary rounded-xl"
+                      : "text-card-foreground hover:text-card-foreground/80"
+                    }`}
                 >
                   <span className="text-xl">{emojis[p]}</span>
-                  <span>{p}</span>
-                </button>
+                  <span className="hidden sm:block">{p}</span>
+                </motion.button>
               </li>
             ))}
-            <li className="flex-1">
+            <li className="flex-1 h-full">
               <DrawerTrigger asChild>
-                <button className="w-full p-3 flex flex-col items-center justify-center space-y-1 text-sm text-primary-foreground hover:text-primary-foreground/80">
+                <motion.button
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full h-full p-3 flex flex-col items-center justify-center space-y-1 text-sm text-card-foreground hover:text-card-foreground/80"
+                >
                   <span className="text-xl">⚙️</span>
-                  <span>Settings</span>
-                </button>
+                  <span className="hidden sm:block">Settings</span>
+                </motion.button>
               </DrawerTrigger>
             </li>
           </ul>
